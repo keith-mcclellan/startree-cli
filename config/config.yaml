@@ -1,0 +1,2 @@
+Authorization: 'Basic ${TOKEN}' 
+hostname: $HOSTNAME
