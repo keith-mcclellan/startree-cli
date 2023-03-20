@@ -6,11 +6,17 @@ package schema
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
+
+	"startree.ai/cli/models"
 )
 
 // GetSchemaReader is a Reader for the GetSchema structure.
@@ -55,7 +61,7 @@ GetSchemaOK describes a response with status code 200, with default header value
 Success
 */
 type GetSchemaOK struct {
-	Payload []string
+	Payload *GetSchemaOKBody
 }
 
 // IsSuccess returns true when this get schema o k response has a 2xx status code
@@ -96,14 +102,16 @@ func (o *GetSchemaOK) String() string {
 	return fmt.Sprintf("[GET /schemas/{schemaName}][%d] getSchemaOK  %+v", 200, o.Payload)
 }
 
-func (o *GetSchemaOK) GetPayload() []string {
+func (o *GetSchemaOK) GetPayload() *GetSchemaOKBody {
 	return o.Payload
 }
 
 func (o *GetSchemaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(GetSchemaOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -219,5 +227,273 @@ func (o *GetSchemaInternalServerError) String() string {
 
 func (o *GetSchemaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	return nil
+}
+
+/*
+GetSchemaOKBody get schema o k body
+swagger:model GetSchemaOKBody
+*/
+type GetSchemaOKBody struct {
+
+	// date time field specs
+	DateTimeFieldSpecs []*models.DateTimeFieldSpec `json:"dateTimeFieldSpecs"`
+
+	// dimension field specs
+	DimensionFieldSpecs []*models.DimensionFieldSpec `json:"dimensionFieldSpecs"`
+
+	// metric field specs
+	MetricFieldSpecs []*models.MetricFieldSpec `json:"metricFieldSpecs"`
+
+	// primary key columns
+	PrimaryKeyColumns []string `json:"primaryKeyColumns"`
+
+	// schema name
+	SchemaName string `json:"schemaName,omitempty"`
+
+	// time field spec
+	TimeFieldSpec *models.TimeFieldSpec `json:"timeFieldSpec,omitempty"`
+}
+
+// Validate validates this get schema o k body
+func (o *GetSchemaOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDateTimeFieldSpecs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateDimensionFieldSpecs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateMetricFieldSpecs(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateTimeFieldSpec(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetSchemaOKBody) validateDateTimeFieldSpecs(formats strfmt.Registry) error {
+	if swag.IsZero(o.DateTimeFieldSpecs) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.DateTimeFieldSpecs); i++ {
+		if swag.IsZero(o.DateTimeFieldSpecs[i]) { // not required
+			continue
+		}
+
+		if o.DateTimeFieldSpecs[i] != nil {
+			if err := o.DateTimeFieldSpecs[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getSchemaOK" + "." + "dateTimeFieldSpecs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getSchemaOK" + "." + "dateTimeFieldSpecs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetSchemaOKBody) validateDimensionFieldSpecs(formats strfmt.Registry) error {
+	if swag.IsZero(o.DimensionFieldSpecs) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.DimensionFieldSpecs); i++ {
+		if swag.IsZero(o.DimensionFieldSpecs[i]) { // not required
+			continue
+		}
+
+		if o.DimensionFieldSpecs[i] != nil {
+			if err := o.DimensionFieldSpecs[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getSchemaOK" + "." + "dimensionFieldSpecs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getSchemaOK" + "." + "dimensionFieldSpecs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetSchemaOKBody) validateMetricFieldSpecs(formats strfmt.Registry) error {
+	if swag.IsZero(o.MetricFieldSpecs) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.MetricFieldSpecs); i++ {
+		if swag.IsZero(o.MetricFieldSpecs[i]) { // not required
+			continue
+		}
+
+		if o.MetricFieldSpecs[i] != nil {
+			if err := o.MetricFieldSpecs[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getSchemaOK" + "." + "metricFieldSpecs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getSchemaOK" + "." + "metricFieldSpecs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetSchemaOKBody) validateTimeFieldSpec(formats strfmt.Registry) error {
+	if swag.IsZero(o.TimeFieldSpec) { // not required
+		return nil
+	}
+
+	if o.TimeFieldSpec != nil {
+		if err := o.TimeFieldSpec.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getSchemaOK" + "." + "timeFieldSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("getSchemaOK" + "." + "timeFieldSpec")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this get schema o k body based on the context it is used
+func (o *GetSchemaOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateDateTimeFieldSpecs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateDimensionFieldSpecs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateMetricFieldSpecs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateTimeFieldSpec(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetSchemaOKBody) contextValidateDateTimeFieldSpecs(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.DateTimeFieldSpecs); i++ {
+
+		if o.DateTimeFieldSpecs[i] != nil {
+			if err := o.DateTimeFieldSpecs[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getSchemaOK" + "." + "dateTimeFieldSpecs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getSchemaOK" + "." + "dateTimeFieldSpecs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetSchemaOKBody) contextValidateDimensionFieldSpecs(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.DimensionFieldSpecs); i++ {
+
+		if o.DimensionFieldSpecs[i] != nil {
+			if err := o.DimensionFieldSpecs[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getSchemaOK" + "." + "dimensionFieldSpecs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getSchemaOK" + "." + "dimensionFieldSpecs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetSchemaOKBody) contextValidateMetricFieldSpecs(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.MetricFieldSpecs); i++ {
+
+		if o.MetricFieldSpecs[i] != nil {
+			if err := o.MetricFieldSpecs[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getSchemaOK" + "." + "metricFieldSpecs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("getSchemaOK" + "." + "metricFieldSpecs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *GetSchemaOKBody) contextValidateTimeFieldSpec(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.TimeFieldSpec != nil {
+		if err := o.TimeFieldSpec.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("getSchemaOK" + "." + "timeFieldSpec")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("getSchemaOK" + "." + "timeFieldSpec")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetSchemaOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetSchemaOKBody) UnmarshalBinary(b []byte) error {
+	var res GetSchemaOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"startree.ai/cli/client/schema"
+	"startree.ai/cli/models"
 
 	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
@@ -137,4 +138,268 @@ func parseOperationSchemaGetSchemaResult(resp0 *schema.GetSchemaOK, respErr erro
 	}
 
 	return "", nil
+}
+
+// register flags to command
+func registerModelGetSchemaOKBodyFlags(depth int, cmdPrefix string, cmd *cobra.Command) error {
+
+	if err := registerGetSchemaOKBodyDateTimeFieldSpecs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerGetSchemaOKBodyDimensionFieldSpecs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerGetSchemaOKBodyMetricFieldSpecs(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerGetSchemaOKBodyPrimaryKeyColumns(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerGetSchemaOKBodySchemaName(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	if err := registerGetSchemaOKBodyTimeFieldSpec(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func registerGetSchemaOKBodyDateTimeFieldSpecs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: dateTimeFieldSpecs []*models.DateTimeFieldSpec array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerGetSchemaOKBodyDimensionFieldSpecs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: dimensionFieldSpecs []*models.DimensionFieldSpec array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerGetSchemaOKBodyMetricFieldSpecs(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: metricFieldSpecs []*models.MetricFieldSpec array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerGetSchemaOKBodyPrimaryKeyColumns(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	// warning: primaryKeyColumns []string array type is not supported by go-swagger cli yet
+
+	return nil
+}
+
+func registerGetSchemaOKBodySchemaName(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	schemaNameDescription := ``
+
+	var schemaNameFlagName string
+	if cmdPrefix == "" {
+		schemaNameFlagName = "schemaName"
+	} else {
+		schemaNameFlagName = fmt.Sprintf("%v.schemaName", cmdPrefix)
+	}
+
+	var schemaNameFlagDefault string
+
+	_ = cmd.PersistentFlags().String(schemaNameFlagName, schemaNameFlagDefault, schemaNameDescription)
+
+	return nil
+}
+
+func registerGetSchemaOKBodyTimeFieldSpec(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	var timeFieldSpecFlagName string
+	if cmdPrefix == "" {
+		timeFieldSpecFlagName = "timeFieldSpec"
+	} else {
+		timeFieldSpecFlagName = fmt.Sprintf("%v.timeFieldSpec", cmdPrefix)
+	}
+
+	if err := registerModelTimeFieldSpecFlags(depth+1, timeFieldSpecFlagName, cmd); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
+func retrieveModelGetSchemaOKBodyFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	retAdded := false
+
+	err, dateTimeFieldSpecsAdded := retrieveGetSchemaOKBodyDateTimeFieldSpecsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || dateTimeFieldSpecsAdded
+
+	err, dimensionFieldSpecsAdded := retrieveGetSchemaOKBodyDimensionFieldSpecsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || dimensionFieldSpecsAdded
+
+	err, metricFieldSpecsAdded := retrieveGetSchemaOKBodyMetricFieldSpecsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || metricFieldSpecsAdded
+
+	err, primaryKeyColumnsAdded := retrieveGetSchemaOKBodyPrimaryKeyColumnsFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || primaryKeyColumnsAdded
+
+	err, schemaNameAdded := retrieveGetSchemaOKBodySchemaNameFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || schemaNameAdded
+
+	err, timeFieldSpecAdded := retrieveGetSchemaOKBodyTimeFieldSpecFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || timeFieldSpecAdded
+
+	return nil, retAdded
+}
+
+func retrieveGetSchemaOKBodyDateTimeFieldSpecsFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	dateTimeFieldSpecsFlagName := fmt.Sprintf("%v.dateTimeFieldSpecs", cmdPrefix)
+	if cmd.Flags().Changed(dateTimeFieldSpecsFlagName) {
+		// warning: dateTimeFieldSpecs array type []*models.DateTimeFieldSpec is not supported by go-swagger cli yet
+	}
+
+	return nil, retAdded
+}
+
+func retrieveGetSchemaOKBodyDimensionFieldSpecsFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	dimensionFieldSpecsFlagName := fmt.Sprintf("%v.dimensionFieldSpecs", cmdPrefix)
+	if cmd.Flags().Changed(dimensionFieldSpecsFlagName) {
+		// warning: dimensionFieldSpecs array type []*models.DimensionFieldSpec is not supported by go-swagger cli yet
+	}
+
+	return nil, retAdded
+}
+
+func retrieveGetSchemaOKBodyMetricFieldSpecsFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	metricFieldSpecsFlagName := fmt.Sprintf("%v.metricFieldSpecs", cmdPrefix)
+	if cmd.Flags().Changed(metricFieldSpecsFlagName) {
+		// warning: metricFieldSpecs array type []*models.MetricFieldSpec is not supported by go-swagger cli yet
+	}
+
+	return nil, retAdded
+}
+
+func retrieveGetSchemaOKBodyPrimaryKeyColumnsFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	primaryKeyColumnsFlagName := fmt.Sprintf("%v.primaryKeyColumns", cmdPrefix)
+	if cmd.Flags().Changed(primaryKeyColumnsFlagName) {
+		// warning: primaryKeyColumns array type []string is not supported by go-swagger cli yet
+	}
+
+	return nil, retAdded
+}
+
+func retrieveGetSchemaOKBodySchemaNameFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	schemaNameFlagName := fmt.Sprintf("%v.schemaName", cmdPrefix)
+	if cmd.Flags().Changed(schemaNameFlagName) {
+
+		var schemaNameFlagName string
+		if cmdPrefix == "" {
+			schemaNameFlagName = "schemaName"
+		} else {
+			schemaNameFlagName = fmt.Sprintf("%v.schemaName", cmdPrefix)
+		}
+
+		schemaNameFlagValue, err := cmd.Flags().GetString(schemaNameFlagName)
+		if err != nil {
+			return err, false
+		}
+		m.SchemaName = schemaNameFlagValue
+
+		retAdded = true
+	}
+
+	return nil, retAdded
+}
+
+func retrieveGetSchemaOKBodyTimeFieldSpecFlags(depth int, m *schema.GetSchemaOKBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+	retAdded := false
+
+	timeFieldSpecFlagName := fmt.Sprintf("%v.timeFieldSpec", cmdPrefix)
+	if cmd.Flags().Changed(timeFieldSpecFlagName) {
+		// info: complex object timeFieldSpec models.TimeFieldSpec is retrieved outside this Changed() block
+	}
+	timeFieldSpecFlagValue := m.TimeFieldSpec
+	if swag.IsZero(timeFieldSpecFlagValue) {
+		timeFieldSpecFlagValue = &models.TimeFieldSpec{}
+	}
+
+	err, timeFieldSpecAdded := retrieveModelTimeFieldSpecFlags(depth+1, timeFieldSpecFlagValue, timeFieldSpecFlagName, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || timeFieldSpecAdded
+	if timeFieldSpecAdded {
+		m.TimeFieldSpec = timeFieldSpecFlagValue
+	}
+
+	return nil, retAdded
 }

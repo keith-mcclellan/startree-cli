@@ -2858,11 +2858,40 @@
                     "200": {
                         "description": "Success",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
+                            "type": "object",
+                            "properties": {
+                                "schemaName": {
+                                    "type": "string"
+                                },
+                                "metricFieldSpecs": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/MetricFieldSpec"
+                                    }
+                                },
+                                "dateTimeFieldSpecs": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/DateTimeFieldSpec"
+                                    }
+                                },
+                                "timeFieldSpec": {
+                                    "$ref": "#/definitions/TimeFieldSpec"
+                                },
+                                "primaryKeyColumns": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "dimensionFieldSpecs": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/DimensionFieldSpec"
+                                    }
+                                }
                             }
-                        }
+                            }
                     },
                     "404": {
                         "description": "Schema not found"
@@ -2988,12 +3017,9 @@
                     "200": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
+                            "type": "array",
+                            "items": {
+                                "type": "string"
                             }
                         }
                     }
