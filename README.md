@@ -8,7 +8,7 @@ You will likely want to run `ln -s /usr/local/bin/startree-arm64 /usr/local/bin/
 
 To avoid having to manually set the hostname and auth token each time, create the following directory `mkdir -p /Users/$USER/.config/startree` then copy the config from `releases/config.yaml` to that new directory
 
-Edit the config.yaml and replace $HOSTNAME with the hostname of your cluster (something like pinot.startree.cloud, do not include https://) and replace ${TOKEN} with your API token. Note that this field is encapsulated and requires the auth type prepended, so it should look something like:
+Edit the config.yaml and replace `$HOSTNAME` with the hostname of your cluster (something like pinot.startree.cloud, do not include https://) and replace ${TOKEN} with your API token. Note that this field is encapsulated and requires the auth type prepended, so it should look something like:
         `Authorization: 'Basic OIFDGsjfe24234sdfdfsdv...='`
 
 ## Usage instructions
