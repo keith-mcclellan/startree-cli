@@ -80,7 +80,10 @@ func parseOperationSchemaListSchemaNamesResult(resp0 *schema.ListSchemaNamesOK, 
 	}
 
 	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
-		msgStr := fmt.Sprintf("%v", resp0.Payload)
+		msgStr, err := json.Marshal(resp0.Payload)
+		if err != nil {
+			return "", err
+		}
 		return string(msgStr), nil
 	}
 

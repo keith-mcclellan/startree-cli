@@ -6,10 +6,12 @@ package cli
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"startree.ai/cli/client/schema"
 
+	"github.com/go-openapi/swag"
 	"github.com/spf13/cobra"
 )
 
@@ -107,7 +109,17 @@ func retrieveOperationSchemaGetSchemaSchemaNameFlag(m *schema.GetSchemaParams, c
 func parseOperationSchemaGetSchemaResult(resp0 *schema.GetSchemaOK, respErr error) (string, error) {
 	if respErr != nil {
 
-		// Non schema case: warning getSchemaOK is not supported
+		var iResp0 interface{} = respErr
+		resp0, ok := iResp0.(*schema.GetSchemaOK)
+		if ok {
+			if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
+				msgStr, err := json.Marshal(resp0.Payload)
+				if err != nil {
+					return "", err
+				}
+				return string(msgStr), nil
+			}
+		}
 
 		// Non schema case: warning getSchemaNotFound is not supported
 
@@ -116,7 +128,13 @@ func parseOperationSchemaGetSchemaResult(resp0 *schema.GetSchemaOK, respErr erro
 		return "", respErr
 	}
 
-	// warning: non schema response getSchemaOK is not supported by go-swagger cli yet.
+	if !swag.IsZero(resp0) && !swag.IsZero(resp0.Payload) {
+		msgStr, err := json.Marshal(resp0.Payload)
+		if err != nil {
+			return "", err
+		}
+		return string(msgStr), nil
+	}
 
 	return "", nil
 }

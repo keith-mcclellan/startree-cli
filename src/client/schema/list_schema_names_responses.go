@@ -43,7 +43,7 @@ ListSchemaNamesOK describes a response with status code 200, with default header
 successful operation
 */
 type ListSchemaNamesOK struct {
-	Payload string
+	Payload map[string][]string
 }
 
 // IsSuccess returns true when this list schema names o k response has a 2xx status code
@@ -84,7 +84,7 @@ func (o *ListSchemaNamesOK) String() string {
 	return fmt.Sprintf("[GET /schemas][%d] listSchemaNamesOK  %+v", 200, o.Payload)
 }
 
-func (o *ListSchemaNamesOK) GetPayload() string {
+func (o *ListSchemaNamesOK) GetPayload() map[string][]string {
 	return o.Payload
 }
 

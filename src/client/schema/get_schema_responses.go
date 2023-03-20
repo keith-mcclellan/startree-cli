@@ -7,6 +7,7 @@ package schema
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -54,6 +55,7 @@ GetSchemaOK describes a response with status code 200, with default header value
 Success
 */
 type GetSchemaOK struct {
+	Payload []string
 }
 
 // IsSuccess returns true when this get schema o k response has a 2xx status code
@@ -87,14 +89,23 @@ func (o *GetSchemaOK) Code() int {
 }
 
 func (o *GetSchemaOK) Error() string {
-	return fmt.Sprintf("[GET /schemas/{schemaName}][%d] getSchemaOK ", 200)
+	return fmt.Sprintf("[GET /schemas/{schemaName}][%d] getSchemaOK  %+v", 200, o.Payload)
 }
 
 func (o *GetSchemaOK) String() string {
-	return fmt.Sprintf("[GET /schemas/{schemaName}][%d] getSchemaOK ", 200)
+	return fmt.Sprintf("[GET /schemas/{schemaName}][%d] getSchemaOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSchemaOK) GetPayload() []string {
+	return o.Payload
 }
 
 func (o *GetSchemaOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

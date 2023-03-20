@@ -43,7 +43,7 @@ ListTablesOK describes a response with status code 200, with default header valu
 successful operation
 */
 type ListTablesOK struct {
-	Payload string
+	Payload map[string][]string
 }
 
 // IsSuccess returns true when this list tables o k response has a 2xx status code
@@ -84,7 +84,7 @@ func (o *ListTablesOK) String() string {
 	return fmt.Sprintf("[GET /tables][%d] listTablesOK  %+v", 200, o.Payload)
 }
 
-func (o *ListTablesOK) GetPayload() string {
+func (o *ListTablesOK) GetPayload() map[string][]string {
 	return o.Payload
 }
 
