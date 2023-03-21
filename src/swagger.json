@@ -7938,7 +7938,7 @@
                     "200": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/TableConfigV2"
                         }
                     }
                 }
@@ -10624,6 +10624,580 @@
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/SegmentAssignmentConfig"
+                    }
+                }
+            }
+        },
+        "TableConfigV2": {
+            "type": "object",
+            "required": [
+                "tableName",
+                "schema"
+            ],
+            "properties": {
+                "tableName": {
+                    "type": "string"
+                },
+                "schema": {
+                    "type": "object",
+                    "required": [
+                        "schemaName"
+                    ],
+                    "properties": {
+                        "schemaName": {
+                            "type": "string"
+                        },
+                        "dimensionFieldSpecs": {
+                            "type": "array",
+                            "items": {}
+                        },
+                        "metricFieldSpecs": {
+                            "type": "array",
+                            "items": {}
+                        },
+                        "dateTimeFieldSpecs": {
+                            "type": "array",
+                            "items": {}
+                        },
+                        "primaryKeyColumns": {
+                            "type": "array",
+                            "items": {}
+                        }
+                    }
+                },
+                "offline": {
+                    "type": "object",
+                    "required": [
+                        "tableName",
+                        "tableType",
+                        "segmentsConfig",
+                        "tenants",
+                        "tableIndexConfig",
+                        "metadata",
+                        "task",
+                        "ingestionConfig",
+                        "isDimTable"
+                    ],
+                    "properties": {
+                        "tableName": {
+                            "type": "string"
+                        },
+                        "tableType": {
+                            "type": "string"
+                        },
+                        "segmentsConfig": {
+                            "type": "object",
+                            "required": [
+                                "schemaName",
+                                "replication",
+                                "retentionTimeUnit",
+                                "retentionTimeValue",
+                                "deletedSegmentsRetentionPeriod",
+                                "segmentPushType",
+                                "segmentAssignmentStrategy",
+                                "timeColumnName",
+                                "minimizeDataMovement"
+                            ],
+                            "properties": {
+                                "schemaName": {
+                                    "type": "string"
+                                },
+                                "replication": {
+                                    "type": "string"
+                                },
+                                "retentionTimeUnit": {
+                                    "type": "string"
+                                },
+                                "retentionTimeValue": {
+                                    "type": "string"
+                                },
+                                "deletedSegmentsRetentionPeriod": {
+                                    "type": "string"
+                                },
+                                "segmentPushType": {
+                                    "type": "string"
+                                },
+                                "segmentAssignmentStrategy": {
+                                    "type": "string"
+                                },
+                                "timeColumnName": {
+                                    "type": "string"
+                                },
+                                "minimizeDataMovement": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "tenants": {
+                            "type": "object",
+                            "required": [
+                                "broker",
+                                "server"
+                            ],
+                            "properties": {
+                                "broker": {
+                                    "type": "string"
+                                },
+                                "server": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "tableIndexConfig": {
+                            "type": "object",
+                            "required": [
+                                "invertedIndexColumns",
+                                "noDictionaryColumns",
+                                "rangeIndexVersion",
+                                "autoGeneratedInvertedIndex",
+                                "createInvertedIndexDuringSegmentGeneration",
+                                "loadMode",
+                                "varLengthDictionaryColumns",
+                                "enableDefaultStarTree",
+                                "enableDynamicStarTreeCreation",
+                                "aggregateMetrics",
+                                "nullHandlingEnabled",
+                                "optimizeDictionary",
+                                "optimizeDictionaryForMetrics",
+                                "noDictionarySizeRatioThreshold"
+                            ],
+                            "properties": {
+                                "invertedIndexColumns": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "noDictionaryColumns": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "rangeIndexVersion": {
+                                    "type": "integer"
+                                },
+                                "autoGeneratedInvertedIndex": {
+                                    "type": "boolean"
+                                },
+                                "createInvertedIndexDuringSegmentGeneration": {
+                                    "type": "boolean"
+                                },
+                                "loadMode": {
+                                    "type": "string"
+                                },
+                                "varLengthDictionaryColumns": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "enableDefaultStarTree": {
+                                    "type": "boolean"
+                                },
+                                "enableDynamicStarTreeCreation": {
+                                    "type": "boolean"
+                                },
+                                "aggregateMetrics": {
+                                    "type": "boolean"
+                                },
+                                "nullHandlingEnabled": {
+                                    "type": "boolean"
+                                },
+                                "optimizeDictionary": {
+                                    "type": "boolean"
+                                },
+                                "optimizeDictionaryForMetrics": {
+                                    "type": "boolean"
+                                },
+                                "noDictionarySizeRatioThreshold": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "metadata": {
+                            "type": "object",
+                            "properties": {}
+                        },
+                        "task": {
+                            "type": "object",
+                            "required": [
+                                "taskTypeConfigsMap"
+                            ],
+                            "properties": {
+                                "taskTypeConfigsMap": {
+                                    "type": "object",
+                                    "required": [
+                                        "FileIngestionTask"
+                                    ],
+                                    "properties": {
+                                        "FileIngestionTask": {
+                                            "type": "object",
+                                            "required": [
+                                                "input.fs.prop.secretKey",
+                                                "schedule",
+                                                "input.fs.className",
+                                                "input.fs.prop.region",
+                                                "inputDirURI",
+                                                "input.fs.prop.accessKey",
+                                                "taskMaxDataSize",
+                                                "tableMaxNumTasks",
+                                                "inputFormat"
+                                            ],
+                                            "properties": {
+                                                "input.fs.prop.secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "schedule": {
+                                                    "type": "string"
+                                                },
+                                                "input.fs.className": {
+                                                    "type": "string"
+                                                },
+                                                "input.fs.prop.region": {
+                                                    "type": "string"
+                                                },
+                                                "inputDirURI": {
+                                                    "type": "string"
+                                                },
+                                                "input.fs.prop.accessKey": {
+                                                    "type": "string"
+                                                },
+                                                "taskMaxDataSize": {
+                                                    "type": "string"
+                                                },
+                                                "tableMaxNumTasks": {
+                                                    "type": "string"
+                                                },
+                                                "inputFormat": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "ingestionConfig": {
+                            "type": "object",
+                            "required": [
+                                "batchIngestionConfig",
+                                "transformConfigs",
+                                "continueOnError",
+                                "rowTimeValueCheck",
+                                "segmentTimeValueCheck"
+                            ],
+                            "properties": {
+                                "batchIngestionConfig": {
+                                    "type": "object",
+                                    "required": [
+                                        "segmentIngestionType",
+                                        "consistentDataPush"
+                                    ],
+                                    "properties": {
+                                        "segmentIngestionType": {
+                                            "type": "string"
+                                        },
+                                        "consistentDataPush": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "transformConfigs": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "continueOnError": {
+                                    "type": "boolean"
+                                },
+                                "rowTimeValueCheck": {
+                                    "type": "boolean"
+                                },
+                                "segmentTimeValueCheck": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "isDimTable": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "realtime": {
+                    "type": "object",
+                    "required": [
+                        "tableName",
+                        "tableType",
+                        "segmentsConfig",
+                        "tenants",
+                        "tableIndexConfig",
+                        "metadata",
+                        "routing",
+                        "upsertConfig",
+                        "ingestionConfig",
+                        "isDimTable"
+                    ],
+                    "properties": {
+                        "tableName": {
+                            "type": "string"
+                        },
+                        "tableType": {
+                            "type": "string"
+                        },
+                        "segmentsConfig": {
+                            "type": "object",
+                            "required": [
+                                "schemaName",
+                                "replication",
+                                "retentionTimeUnit",
+                                "retentionTimeValue",
+                                "replicasPerPartition",
+                                "deletedSegmentsRetentionPeriod",
+                                "segmentPushType",
+                                "segmentAssignmentStrategy",
+                                "timeColumnName",
+                                "minimizeDataMovement"
+                            ],
+                            "properties": {
+                                "schemaName": {
+                                    "type": "string"
+                                },
+                                "replication": {
+                                    "type": "string"
+                                },
+                                "retentionTimeUnit": {
+                                    "type": "string"
+                                },
+                                "retentionTimeValue": {
+                                    "type": "string"
+                                },
+                                "replicasPerPartition": {
+                                    "type": "string"
+                                },
+                                "deletedSegmentsRetentionPeriod": {
+                                    "type": "string"
+                                },
+                                "segmentPushType": {
+                                    "type": "string"
+                                },
+                                "segmentAssignmentStrategy": {
+                                    "type": "string"
+                                },
+                                "timeColumnName": {
+                                    "type": "string"
+                                },
+                                "minimizeDataMovement": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "tenants": {
+                            "type": "object",
+                            "required": [
+                                "broker",
+                                "server"
+                            ],
+                            "properties": {
+                                "broker": {
+                                    "type": "string"
+                                },
+                                "server": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "tableIndexConfig": {
+                            "type": "object",
+                            "required": [
+                                "invertedIndexColumns",
+                                "noDictionaryColumns",
+                                "rangeIndexVersion",
+                                "autoGeneratedInvertedIndex",
+                                "createInvertedIndexDuringSegmentGeneration",
+                                "sortedColumn",
+                                "loadMode",
+                                "varLengthDictionaryColumns",
+                                "enableDefaultStarTree",
+                                "enableDynamicStarTreeCreation",
+                                "segmentPartitionConfig",
+                                "aggregateMetrics",
+                                "nullHandlingEnabled",
+                                "optimizeDictionary",
+                                "optimizeDictionaryForMetrics",
+                                "noDictionarySizeRatioThreshold"
+                            ],
+                            "properties": {
+                                "invertedIndexColumns": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "noDictionaryColumns": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "rangeIndexVersion": {
+                                    "type": "integer"
+                                },
+                                "autoGeneratedInvertedIndex": {
+                                    "type": "boolean"
+                                },
+                                "createInvertedIndexDuringSegmentGeneration": {
+                                    "type": "boolean"
+                                },
+                                "sortedColumn": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "loadMode": {
+                                    "type": "string"
+                                },
+                                "varLengthDictionaryColumns": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "enableDefaultStarTree": {
+                                    "type": "boolean"
+                                },
+                                "enableDynamicStarTreeCreation": {
+                                    "type": "boolean"
+                                },
+                                "segmentPartitionConfig": {
+                                    "type": "object",
+                                    "required": [
+                                        "columnPartitionMap"
+                                    ],
+                                    "properties": {
+                                        "columnPartitionMap": {
+                                            "type": "object",
+                                            "required": [
+                                                "city",
+                                                "id"
+                                            ],
+                                            "properties": {
+                                                "city": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "functionName",
+                                                        "numPartitions"
+                                                    ],
+                                                    "properties": {
+                                                        "functionName": {
+                                                            "type": "string"
+                                                        },
+                                                        "numPartitions": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                },
+                                                "id": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "functionName",
+                                                        "numPartitions"
+                                                    ],
+                                                    "properties": {
+                                                        "functionName": {
+                                                            "type": "string"
+                                                        },
+                                                        "numPartitions": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "aggregateMetrics": {
+                                    "type": "boolean"
+                                },
+                                "nullHandlingEnabled": {
+                                    "type": "boolean"
+                                },
+                                "optimizeDictionary": {
+                                    "type": "boolean"
+                                },
+                                "optimizeDictionaryForMetrics": {
+                                    "type": "boolean"
+                                },
+                                "noDictionarySizeRatioThreshold": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "metadata": {
+                            "type": "object",
+                            "properties": {}
+                        },
+                        "routing": {
+                            "type": "object",
+                            "required": [
+                                "segmentPrunerTypes",
+                                "instanceSelectorType"
+                            ],
+                            "properties": {
+                                "segmentPrunerTypes": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "instanceSelectorType": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "upsertConfig": {
+                            "type": "object",
+                            "required": [
+                                "mode",
+                                "hashFunction",
+                                "enableSnapshot"
+                            ],
+                            "properties": {
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "hashFunction": {
+                                    "type": "string"
+                                },
+                                "enableSnapshot": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "ingestionConfig": {
+                            "type": "object",
+                            "required": [
+                                "streamIngestionConfig",
+                                "transformConfigs",
+                                "continueOnError",
+                                "rowTimeValueCheck",
+                                "segmentTimeValueCheck"
+                            ],
+                            "properties": {
+                                "streamIngestionConfig": {
+                                    "type": "object",
+                                    "required": [
+                                        "streamConfigMaps"
+                                    ],
+                                    "properties": {
+                                        "streamConfigMaps": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    }
+                                },
+                                "transformConfigs": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "continueOnError": {
+                                    "type": "boolean"
+                                },
+                                "rowTimeValueCheck": {
+                                    "type": "boolean"
+                                },
+                                "segmentTimeValueCheck": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "isDimTable": {
+                            "type": "boolean"
+                        }
                     }
                 }
             }
