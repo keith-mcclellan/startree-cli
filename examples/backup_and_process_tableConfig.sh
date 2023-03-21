@@ -2,7 +2,7 @@
 mkdir -p backups
 for i in `startree table listTables | jq -r '.tables | .[]'`
 do
-echo | startree table getConfig --tableName $i | jq '.' > $i.json 
+echo | startree table getConfig --tableName $i | jq 'del(..|select(. == null))' > $i.json 
 
 
 if [ `jq -r .realtime.tableType $i.json` = "REALTIME" ]
